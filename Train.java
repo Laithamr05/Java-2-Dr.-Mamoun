@@ -1,102 +1,66 @@
-package practice;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 
 public class Train {
-    // A 2D array to represent the seats on the train (4 seats per row, 23 rows)
-    private static Seat[][] seats = new Seat[23][4];
 
-    // Constructor initializes the seats on the train
-    public Train() {
-        int seatNumber = 1;
-        for (int i = 0; i < 23; i++) {
-            for (int j = 0; j < 4; j++) {
-                seats[i][j] = new Seat(seatNumber++);
-            }
-        }
-    }
+	private static Seat seats[][] = new Seat[23][];
 
-    // Method to reserve a seat
-    public boolean reserveSeat(int seatNumber, String passengerName) {
-        if (!Seat.isValid(seatNumber)) {
-            return false; // Invalid seat number
-        }
+	public Train() {
+		int seatNumber = 1;
+		for (int i = 0; i < 23; i++) {
+			for (int j = 0; i < 4; i++) {
+				seatNumber++;
+			}
 
-        int row = Seat.getRow(seatNumber) - 1;
-        int column = Seat.getColoumn(seatNumber) - 1;
+		}
+	}
 
-        if (seats[row][column].isEmpty()) {
-            seats[row][column].setPassengerName(passengerName);
-            return true; // Seat reserved successfully
-        }
-        return false; // Seat already reserved
-    }
+	public boolean reserveSeat(int seatNumber, String passengerName) {
+		if (!Seat.isValid(seatNumber))
+			return false;
+		int row = Seat.getRow(seatNumber);
+		int coloumn = Seat.getColoumn(seatNumber);
 
-    // Method to delete a reserved seat
-    public boolean deleteSeat(int seatNumber) {
-        if (!Seat.isValid(seatNumber)) {
-            return false; // Invalid seat number
-        }
+		if (Seat.isEmpty(passengerName)) {
+			seats[row][coloumn].setPassengerName(passengerName);
+			return true;
+		}
+		return false;
 
-        int row = Seat.getRow(seatNumber) - 1;
-        int column = Seat.getColoumn(seatNumber) - 1;
+	}
 
-        if (!seats[row][column].isEmpty()) {
-            seats[row][column].setPassengerName(null);
-            return true; // Seat reservation deleted successfully
-        }
-        return false; // Seat is already empty
-    }
+	public boolean deleteSeat(int seatNumber, String passengerName) {
+		int row = Seat.getRow(seatNumber);
+		int coloumn = Seat.getColoumn(seatNumber);
 
-    // Method to delete all reserved seats
-    public void deleteAllSeats() {
-        for (int i = 0; i < 23; i++) {
-            for (int j = 0; j < 4; j++) {
-                seats[i][j].setPassengerName(null); // Empty each seat
-            }
-        }
-    }
+		if (!Seat.isValid(seatNumber))
+			return false;
+		if (Seat.isEmpty(passengerName))
+			return false;
 
-    // Method to read passenger file and populate the seat reservations
-    public void readPassengerFile(String filename) throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(filename));
-        String line;
-        while ((line = reader.readLine()) != null) {
-            String[] parts = line.split(":");
-            int seatNumber = Integer.parseInt(parts[0].trim());
-            String passengerName = parts[1].trim();
+		seats[row][coloumn].setPassengerName(null);
+		return true;
+	}
 
-            if (Seat.isValid(seatNumber) && seats[Seat.getRow(seatNumber) - 1][Seat.getColoumn(seatNumber) - 1].isEmpty()) {
-                reserveSeat(seatNumber, passengerName);
-            }
-        }
-        reader.close();
-    }
+	public boolean deleteAll(int seatNumber, String passengerName) {
+		for (int i = 0; i < 23; i++) {
+			for (int j = 0; i < 4; i++) {
+				seatNumber++;
+				int row = Seat.getRow(seatNumber);
+				int coloumn = Seat.getColoumn(seatNumber);
+				seats[row][coloumn].setPassengerName(null);
+			}
 
-    // Method to write all reserved seats back to the file
-    public void updatePassengerFile(String filename) throws IOException {
-        BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
-        for (int i = 0; i < 23; i++) {
-            for (int j = 0; j < 4; j++) {
-                if (!seats[i][j].isEmpty()) {
-                    writer.write(seats[i][j].getSeatNumber() + ": " + seats[i][j].getPassengerName() + "\n");
-                }
-            }
-        }
-        writer.close();
-    }
+		}
+		return true;
+	}
 
-    // Display all seats with their status
-    public void displaySeats() {
-        for (int i = 0; i < 23; i++) {
-            for (int j = 0; j < 4; j++) {
-                System.out.print(seats[i][j] + "\t");
-            }
-            System.out.println();
-        }
-    }
+	public void print(int seatNumber) {
+		for (int i = 0; i < 23; i++) {
+			for (int j = 0; i < 4; i++) {
+				seatNumber++;
+				int row = Seat.getRow(seatNumber);
+				int coloumn = Seat.getColoumn(seatNumber);
+
+			}
+		}
+	}
 }
