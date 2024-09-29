@@ -1,104 +1,108 @@
 package practice;
 
-import java.io.IOException;
+import java.io.*;
 import java.util.Scanner;
 
 public class Driver {
+	public static void main(String[] args) {
+		Scanner scanner = new Scanner(System.in);
+		Train train = new Train();
+		Seat seat = new Seat();
 
-    public static void main(String[] args) {
-        Train train = new Train();
-        Scanner scanner = new Scanner(System.in);
-        String filename = "passengers.txt"; // Example filename
+		while (true) {
+			System.out.println("Welcome to the main menu");
+			System.out.println("1 Read passengers file");
+			System.out.println("2 Reserve a new empty seat");
+			System.out.println("3 Delete a reserved seat");
+			System.out.println("4 Delete all reserved seats");
+			System.out.println("5 Update passengers file");
+			System.out.println("6 Print all seats");
+			System.out.println("7 Quit");
+			System.out.print("Please enter your choice: ");
 
-        while (true) {
-            // Display menu
-            System.out.println("Menu:");
-            System.out.println("1. Read passengers file");
-            System.out.println("2. Reserve a new empty seat");
-            System.out.println("3. Delete a reserved seat");
-            System.out.println("4. Delete all reserved seats");
-            System.out.println("5. Update passengers file");
-            System.out.println("6. Quit");
+			if (!scanner.hasNextInt()) {
+				System.out.println("Invalid input Please enter a valid number");
+				scanner.next();
+				continue;
+			}
 
-            // Ask the user to choose an option
-            System.out.print("Choose an option: ");
-            if (!scanner.hasNextInt()) {
-                System.out.println("Invalid input. Please enter a number.");
-                scanner.next(); // Clear invalid input
-                continue;
-            }
+			int choice = scanner.nextInt();
+			scanner.nextLine();
 
-            int choice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+			switch (choice) {
+			case 1:
+				try (BufferedReader reader = new BufferedReader(new FileReader("Seats.txt"))) {
+					String line;
 
-            switch (choice) {
-                case 1:
-                    // Read passengers file
-                    try {
-                        train.readPassengerFile(filename);
-                        train.displaySeats();
-                    } catch (IOException e) {
-                        System.out.println("Error reading the file: " + e.getMessage());
-                    }
-                    break;
-                case 2:
-                    // Reserve a new empty seat
-                    System.out.print("Enter seat number: ");
-                    if (!scanner.hasNextInt()) {
-                        System.out.println("Invalid seat number. Please enter a valid number.");
-                        scanner.next(); // Clear invalid input
-                        continue;
-                    }
-                    int seatNumber = scanner.nextInt();
-                    scanner.nextLine(); // Consume newline
+					while ((line = reader.readLine()) != null) {
+						System.out.println(line);
+					}
+					System.out.println();
+					System.out.println("Passenger file printed successfully.");
+				} catch (IOException e) {
+					System.out.println("Error reading passengers file");
+				}
 
-                    System.out.print("Enter passenger name: ");
-                    String passengerName = scanner.nextLine();
+				break;
 
-                    if (train.reserveSeat(seatNumber, passengerName)) {
-                        System.out.println("Seat reserved successfully.");
-                    } else {
-                        System.out.println("Seat reservation failed. Seat may already be reserved or invalid.");
-                    }
-                    break;
-                case 3:
-                    // Delete a reserved seat
-                    System.out.print("Enter seat number to delete: ");
-                    if (!scanner.hasNextInt()) {
-                        System.out.println("Invalid seat number. Please enter a valid number.");
-                        scanner.next(); // Clear invalid input
-                        continue;
-                    }
-                    seatNumber = scanner.nextInt();
+			case 2:
+				System.out.print("Enter seat number to reserve: ");
+				int seatNumber = scanner.nextInt();
+				scanner.nextLine();
+				System.out.print("Enter passenger name: ");
+				String passengerName = scanner.nextLine();
 
-                    if (train.deleteSeat(seatNumber)) {
-                        System.out.println("Seat reservation deleted successfully.");
-                    } else {
-                        System.out.println("Failed to delete seat reservation. Seat may already be empty or invalid.");
-                    }
-                    break;
-                case 4:
-                    // Delete all reserved seats
-                    train.deleteAllSeats();
-                    System.out.println("All reserved seats deleted.");
-                    break;
-                case 5:
-                    // Update passengers file
-                    try {
-                        train.updatePassengerFile(filename);
-                        System.out.println("Passenger file updated.");
-                    } catch (IOException e) {
-                        System.out.println("Error writing to the file: " + e.getMessage());
-                    }
-                    break;
-                case 6:
-                    // Exit program
-                    System.out.println("Exiting...");
-                    scanner.close();
-                    return;
-                default:
-                    System.out.println("Invalid choice. Please select a valid option.");
-            }
-        }
-    }
+				if (train.reserveSeat(seatNumber, passengerName)) {
+					System.out.println("Seat reserved successfully");
+				} else {
+					System.out.println("Seat reservation failed Seat may be reserved or invalid");
+				}
+				break;
+
+			case 3:
+				System.out.print("Enter seat number to delete reservation: ");
+				seatNumber = scanner.nextInt();
+
+				if (train.deleteSeat(seatNumber)) {
+					System.out.println("Seat reservation deleted successfully");
+				} else {
+					System.out.println("Failed to delete reservation Seat may already be empty or invalid");
+				}
+				break;
+
+			case 4:
+				train.deleteAll();
+				System.out.println("All reserved seats deleted");
+				break;
+
+			case 5:
+				try (BufferedWriter writer = new BufferedWriter(new FileWriter("Seats.txt"))) {
+					for (int seatNum = 1; seatNum <= 92; seatNum++) {
+						if (!seat.isEmpty(train.passengerName(seatNum))) {
+							passengerName = train.passengerName(seatNum);
+							if (passengerName != null && !seat.isEmpty(passengerName)) {
+								writer.write("Seat Number: " + seatNum + "  " + passengerName);
+								writer.newLine();
+							}
+						}
+					}
+					System.out.println("Passengers file updated successfully");
+				} catch (IOException e) {
+					System.out.println("Error updating passengers file");
+				}
+				break;
+
+			case 6:
+				train.print();
+				break;
+
+			case 7:
+				System.out.println("Exiting the program");
+				scanner.close();
+				return;
+			default:
+				System.out.println("Invalid choice Please select a valid option");
+			}
+		}
+	}
 }

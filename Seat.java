@@ -1,3 +1,5 @@
+package practice;
+
 
 public class Seat {
 
@@ -26,7 +28,7 @@ public class Seat {
 			this.passengerName = passengerName;
 	}
 
-	public static boolean isEmpty(String passengerName) {
+	public boolean isEmpty(String passengerName) {
 		return passengerName == null;
 
 	}
