@@ -1,4 +1,4 @@
-package practice;
+
 
 
 public class Seat {
