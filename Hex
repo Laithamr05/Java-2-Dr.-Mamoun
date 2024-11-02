@@ -1,11 +1,25 @@
-public static int hex2Dea (String s) throws NumberFormatException (
-int sun = 0:
-for (int ims. length (-1, p=0; i >= 0: i--,p++) (
-char a = s. charAt (1) :
-if (a >= 10' Gaa <= 19 )(
-sun += Integer-parseInt (a+"*) *Math. pow(16, p) :
-else if (a >= 'A' da a <= 'F') (
-int c = (a-'A') +10;
-sum += c*Math.pow(16, p) :
-else
-throw new NumberFormatException (a+" is not a valid hexa!!!!*):
+Activity 1:
+- Write the hex2Dec(String hexString) method, which converts a hex string into a decimal
+number. Implement the hex2Dec method to throw a NumberFormatException if the
+string is not a hex string. Write a test program that prompts the user to enter a hex
+number as a string and displays its decimal equivalent. If the method throws an exception,
+display (Not a hex number).
+Activity 2:
+Re-write the hex2Dec method in activity 1 to throw a HexFormatException if the string
+is not a hex string. Define a custom exception called HexFormatException.
+Activity 3:
+Write a program to create a file named data.dat if it does not exist. Append new data to
+it if it already exists. Write 100 integers created randomly into the file using binary I/O.
+Activity 4:
+Suppose a binary data file named data.dat has been created from Activity 3 and its data
+are created using writeInt(int) in DataOutputStream. The file contains an unspecified
+number of integers. Write a program to find the sum of the integers.
+Activity 5:
+Implement a class named BitOutputStream, as shown in Table 4 , for writing bits to
+an output stream. The writeBit(char bit) method stores the bit in a byte variable. When
+you create a BitOutputStream, the byte is empty. After invoking writeBit(’1’), the byte
+becomes 00000001. After invoking writeBit("0101"), the byte becomes 00010101. The
+first three bits are not filled yet. When a byte is full, it is sent to the output stream. Now
+the byte is reset to empty. You must close the stream by invoking the close() method. If
+the byte is neither empty nor full, the close() method first fills the zeros to make a full 8
+bits in the byte and then outputs the byte and closes the stream.
