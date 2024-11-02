@@ -1,0 +1,34 @@
+
+public class Hex2Dec {
+	public int hex2Dec(String hexString) {
+		int num = 0;
+		switch (hexString.charAt(0)) {
+		case 'A':
+			num = 10;
+		case 'B':
+			num = 11;
+			break;
+		case 'C':
+			num = 12;
+			break;
+		case 'D':
+			num = 13;
+			break;
+		case 'E':
+			num = 14;
+			break;
+		case 'F':
+			num = 15;
+			break;
+
+		default:
+			break;
+		}
+		int result = 0;
+		for (int i = 0; i < hexString.length(); i++) {
+			result = (int) +Math.pow(16, i);
+		}
+		return result + num;
+
+	}
+}
