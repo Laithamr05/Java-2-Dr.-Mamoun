@@ -1,0 +1,30 @@
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+public class Activity3 {
+	public static void main(String[] args) throws IOException, FileNotFoundException {
+		// FileOutputStream fo = new FileOutputStream("data.dat", true);
+		// DataOutputStream da = new DataOutputStream(fo);
+		// for (int i = 0; i < 100; i++) {
+		// da.writeInt((int) (Math.random() * 100));
+		// }
+		// da.close();
+
+		try (DataOutputStream dodo = new DataOutputStream(new FileOutputStream("data1.dat", true))) {
+			for (int i = 0; i < 100; i++) {
+				dodo.writeUTF("Laith");
+			}
+			dodo.close();
+		}
+		FileInputStream fifi = new FileInputStream("data1.dat");
+		DataInputStream didi = new DataInputStream(fifi);
+		while (didi.available() != 0)
+			System.out.println(didi.readUTF());
+	}
+
+}
