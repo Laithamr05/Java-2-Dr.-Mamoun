@@ -1,0 +1,38 @@
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+
+public class FixedBarChartRectangles extends Application {
+    @Override
+    public void start(Stage primaryStage) {
+        VBox chart = new VBox(10); // Space between bars
+
+        // Create and add bars with labels
+        chart.getChildren().add(createBarWithLabel("Project -- 20%", 20, Color.RED));
+        chart.getChildren().add(createBarWithLabel("Quiz -- 10%", 10, Color.BLUE));
+        chart.getChildren().add(createBarWithLabel("Midterm -- 30%", 30, Color.GREEN));
+        chart.getChildren().add(createBarWithLabel("Final -- 40%", 40, Color.ORANGE));
+
+        // Setup scene and stage
+        Scene scene = new Scene(chart, 600, 400);
+        primaryStage.setTitle("Fixed Bar Chart (Rectangles)");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    private VBox createBarWithLabel(String label, double percentage, Color color) {
+        Text text = new Text(label); // Add label
+        Rectangle bar = new Rectangle(percentage * 5, 30); // Width scales with percentage
+        bar.setFill(color);
+        VBox barBox = new VBox(5, text, bar); // Add label above the bar
+        return barBox;
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
