@@ -1,30 +1,41 @@
+
 package application;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class BarGraph extends Application {
-
+public class Chess extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
+		int box = 8;
 		GridPane sp = new GridPane();
+		for (int r = 0; r < box; r++) {
+			for (int c = 0; c < box; c++) {
+				Rectangle rec = new Rectangle(70, 70);
+				rec.xProperty().bind(sp.widthProperty().divide(8).multiply(c));
+				rec.yProperty().bind(sp.heightProperty().divide(8).multiply(r));
+				rec.widthProperty().bind(sp.widthProperty().divide(8));
+				rec.heightProperty().bind(sp.heightProperty().divide(8));
 
-		Rectangle rec1 = new Rectangle(100, 200);
-		Rectangle rec2 = new Rectangle(150, 200);
-		Rectangle rec3 = new Rectangle(50, 200);
-		Rectangle rec4 = new Rectangle(25, 200);
-		sp.getChildren().add(rec1);
-		sp.getChildren().add(rec2);
-		sp.getChildren().add(rec3);
-		sp.getChildren().add(rec4);
-		
-		Text text = new Text();
+				if ((r + c) % 2 == 0) {
+					rec.setFill(Color.WHITE);
+				} else {
+					rec.setFill(Color.BLACK);
+				}
+				sp.add(rec, c, r);
+
+			}
+		}
+
 		Scene scene = new Scene(sp, 70 * 8, 70 * 8);
 		primaryStage.setScene(scene);
 		primaryStage.show();
@@ -34,4 +45,3 @@ public class BarGraph extends Application {
 		launch(args);
 	}
 }
-
