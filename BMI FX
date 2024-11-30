@@ -1,0 +1,74 @@
+package application;
+
+import javafx.application.Application;
+import javafx.geometry.Pos;
+import javafx.stage.Stage;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+
+public class Main extends Application {
+	@Override
+	public void start(Stage primaryStage) {
+		try {
+			double result = 0;
+			HBox hb = new HBox(5);
+			GridPane gp = new GridPane();
+			Label ll = new Label("  M");
+			Label ll2 = new Label("F");
+			RadioButton rb1 = new RadioButton();
+			RadioButton rb2 = new RadioButton();
+			ToggleGroup tg = new ToggleGroup();
+			rb1.setToggleGroup(tg);
+			rb2.setToggleGroup(tg);
+			hb.getChildren().addAll(ll, rb1, ll2, rb2);
+			Label lb1 = new Label("Name");
+			Label lb2 = new Label("Gender");
+			Label lb3 = new Label("Height");
+			Label lb4 = new Label("Weight");
+			Label lb5 = new Label("BMI");
+			Label lb6 = new Label("" + result);
+			TextField tf1 = new TextField();
+			TextField tf2 = new TextField();
+			TextField tf3 = new TextField();
+			Button button = new Button("Result");
+			gp.add(lb1, 0, 0);
+			gp.add(tf1, 1, 0);
+			gp.add(lb2, 0, 1);
+			gp.add(hb, 1, 1);
+			gp.add(lb3, 0, 2);
+			gp.add(tf2, 1, 2);
+			gp.add(lb4, 0, 3);
+			gp.add(tf3, 1, 3);
+			gp.add(lb5, 0, 4);
+			gp.add(lb6, 1, 4);
+			gp.add(button, 0, 5);
+			gp.setAlignment(Pos.CENTER);
+			Scene scene = new Scene(gp, 200, 200);
+			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			primaryStage.setScene(scene);
+			primaryStage.show();
+			double weight = 0;
+			double height = 0;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void main(String[] args) {
+		launch(args);
+	}
+}
