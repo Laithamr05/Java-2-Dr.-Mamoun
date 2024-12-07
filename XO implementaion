@@ -1,0 +1,34 @@
+package application;
+
+import javafx.scene.control.Label;
+
+public class Game {
+    private boolean isXTurn = true;
+    private Label[][] cells;
+    private Label turnLabel;
+
+    public Game(Label[][] cells, Label turnLabel) {
+        this.cells = cells;
+        this.turnLabel = turnLabel;
+    }
+
+    public void handleCellClick(Label label, int c, int r) {
+        if (!label.getText().isEmpty()) {
+            return;
+        }
+
+        if (isXTurn) {
+            label.setText("X");
+        } else {
+            label.setText("O");
+        }
+
+        isXTurn = !isXTurn;
+        updateTurnLabel();
+    }
+
+    private void updateTurnLabel() {
+        String turnText = isXTurn ? "X Turn" : "O Turn";
+        turnLabel.setText(turnText);
+    }
+}
